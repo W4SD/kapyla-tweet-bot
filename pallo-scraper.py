@@ -2,10 +2,10 @@ import requests
 from bs4 import BeautifulSoup as BS
 
 base_url = "https://www.palloliitto.fi"
+scrape_url = "https://www.palloliitto.fi/seura/3436"
 all_ottelut = {}
 
-def scrape_ottelut():
-    url = "https://www.palloliitto.fi/seura/3436"
+def scrape_ottelut(url):
 
     response = requests.get(url)
 
@@ -48,5 +48,5 @@ def separate_ottelut(ottelut):
         all_ottelut[match_id] = match_details
 
 
-separate_ottelut(scrape_ottelut())
+separate_ottelut(scrape_ottelut(scrape_url))
 print(all_ottelut)
