@@ -3,6 +3,7 @@ from bs4 import BeautifulSoup as BS
 
 base_url = "https://www.palloliitto.fi"
 scrape_url = "https://www.palloliitto.fi/seura/3436"
+crest = "https://ucdn.torneopal.fi/logo/palloliitto/3436x.png"
 all_ottelut = {}
 
 def scrape_ottelut(url):
@@ -43,6 +44,11 @@ def separate_ottelut(ottelut):
         match_link = match.select(".live-match-link")[0].a["data-details-href"]
         # splits the match_link "/otteluseuranta/1491717" -> ["",otteluseuranta,1491717]
         match_id = match_link.split("/")[2]
+        home_crest_url = (
+            match.select(".home-team-wrapper")[0].img["src"]
+        )
+        # check if kapyla is playing home field by comparing crest data
+        match_details["is_kapyla_home"] = True if crest == home_crest_url else False
         match_details["match_link"] = base_url + match_link
 
         all_ottelut[match_id] = match_details
