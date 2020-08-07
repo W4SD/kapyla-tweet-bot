@@ -12,10 +12,11 @@ def main():
     # Database
     # Create database accessor
     mongrel = Mongrel(conf.db_user, conf.db_password, conf.db_address)
-    #update database
+    # update database
     mongrel.db_updater(conf.match_json)
     # if mongrel.days_until next match = 0 tweet
     # else tweet days until next match
+    # find next game
 
     pass
 

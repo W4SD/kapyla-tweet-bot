@@ -117,6 +117,8 @@ class Mongrel():
 
         return result
 
+    # @ToDo db_match_today .. if yes find match data, if not tweet days until!
+
     # close client
     def _db_cleanUp(self):
         self.Client.close()
