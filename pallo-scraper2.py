@@ -60,8 +60,6 @@ def fetch_match_details(ottelut):
         # gives the id for the match:
         match_id = match_link.split("/")[4]
         print(f"ID: {match_id}, type: {type(match_id)}")
-        # @ToDo [FEAT] Check from database if match details already exist?
-        # @Todo [FEAT] Also need to take in account if any details have changed...?
         match_details = fetch_match_data(match_id)
         # error handling if only a string was returned -> no match_details found
         if not isinstance(match_details, str):
@@ -70,6 +68,7 @@ def fetch_match_details(ottelut):
 
         # @Todo [FEAT] Venue link can be build from data -> https://www.palloliitto.fi/areena/336 -> 'venue_location_id'
         all_ottelut[match_id] = match_details
+        all_ottelut.pop("lineups", None)
         print("Match details added")
         break
 
