@@ -41,9 +41,9 @@ class Mongrel():
         return dict_matches
 
     # db updater
-    def db_updater(self):
+    def db_updater(self, json_file):
         # match_data = self.json_loader("matches.json")
-        match_data = self.json_loader("match_json_test.json")
+        match_data = self.json_loader(json_file)
         # if file_all_matches is not found bubbless as error "TypeError: 'NoneType'"
         for match in match_data:
             # single match data with ID as key
@@ -89,6 +89,7 @@ class Mongrel():
     def _db_find_next_match(self) -> str:
 
         search_date = self.current_date.strftime(self.date_format)
+        search_date = self._convert_datetime(self.current_date, "FROM")
         last_game_day = self._last_game_day()
         game_day = ""
         # finds all the games with the spesific date!

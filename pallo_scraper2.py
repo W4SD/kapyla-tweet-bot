@@ -1,3 +1,4 @@
+import json
 import requests
 from bs4 import BeautifulSoup as BS
 
@@ -72,11 +73,8 @@ def fetch_match_details(ottelut):
         print("Match details added")
         break
 
-def scraper():
+def scraper(json_file):
 
     fetch_match_details(scrape_ottelut(scrape_url))
-    # print(all_ottelut["1507270"]["match_link"])
-
-# print(fetch_match_data("14916453"))
-
-# scraper()
+    with open(json_file, "w+") as file:
+        json.dump(all_ottelut, file)
