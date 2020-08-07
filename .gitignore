@@ -125,3 +125,6 @@ dmypy.json
 
 
 .idea/
+
+# config file
+.conf.py
