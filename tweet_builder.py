@@ -120,10 +120,11 @@ class TweetBuilder():
 
 # TWEET GENERATOR TESTER!
 # URL in TWEETS ARE ALWAYS 23 characters by TWITTER MADE RULES!
-with open("example_match_data.json", 'r') as f:
-    data = json.load(f)
+def tweet_test():
+    with open("example_match_data.json", 'r') as f:
+        data = json.load(f)
 
-tweet_test = TweetBuilder(data["match"])
-the_tweet = tweet_test.generate_tweet()
+    tweet_test = TweetBuilder(data["match"])
+    the_tweet = tweet_test.generate_tweet()
 
-print(f"{the_tweet} \n Pituus: {len(the_tweet)}")
+    print(f"{the_tweet} \n Pituus: {len(the_tweet)}")
