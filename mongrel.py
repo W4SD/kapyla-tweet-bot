@@ -41,9 +41,9 @@ class Mongrel():
         return dict_matches
 
     # db updater
-    def db_updater(self):
+    def db_updater(self, json_file):
         # match_data = self.json_loader("matches.json")
-        match_data = self.json_loader("match_json_test.json")
+        match_data = self.json_loader(json_file)
         # if file_all_matches is not found bubbless as error "TypeError: 'NoneType'"
         for match in match_data:
             # single match data with ID as key
@@ -83,19 +83,18 @@ class Mongrel():
         today_datetime = datetime.combine(self.current_date, time(0, 0))
         # datime.timedelta object
         days_until = game_day_datetime - today_datetime
-        self.days_until_match = days_until["days"]
+        self.days_until_match = days_until.days
 
-    # find next match
-    def _db_find_next_match(self) -> str:
+    def db_find_next_match(self):
 
-        search_date = self.current_date.strftime(self.date_format)
+        # search_date = self.current_date.strftime(self.date_format)
+        search_date = self._convert_datetime(self.current_date, "FROM")
         last_game_day = self._last_game_day()
-        game_day = ""
         # finds all the games with the spesific date!
         while True:
             hits = self.collection.count_documents({"date": {"$eq": search_date}})
             if hits > 0:
-                game_day = search_date
+                self.game_day = search_date
                 self._days_until_next_match()
                 break
             # no games in sight
@@ -104,13 +103,10 @@ class Mongrel():
 
             search_date = self._add_day(search_date)
 
-        return game_day
-
     def db_fetch_match_data(self) -> list:
 
-        game_day = self._db_find_next_match()
         result = []
-        cursor = self.collection.find({"date": game_day})
+        cursor = self.collection.find({"date": self.game_day})
         for game in cursor:
             result.append(game)
 

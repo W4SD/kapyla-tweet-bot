@@ -1,14 +1,14 @@
+import json
 import requests
 from bs4 import BeautifulSoup as BS
-
 
 base_url = "https://www.palloliitto.fi"
 scrape_url = "https://www.palloliitto.fi/seura/3436"
 
 all_ottelut = {}
 
-def scrape_ottelut(url):
 
+def scrape_ottelut(url):
     response = requests.get(url)
 
     if response.status_code != requests.codes.ok:
@@ -26,7 +26,6 @@ def scrape_ottelut(url):
 
 
 def fetch_match_data(match_id):
-
     # palloliitto api url
     match_data_url = "https://www.palloliitto.fi/get-match-data"
     data = {
@@ -48,18 +47,16 @@ def fetch_match_data(match_id):
             # "ok" and "error"
             match_data_value = match_data_response
 
-    return (match_data_value)
+    return match_data_value
 
 
 def fetch_match_details(ottelut):
-
-    for match in ottelut:
-
+    for i,match in enumerate(ottelut):
         # splits the match_link "`base_url`/otteluseuranta/1491717" -> ["",otteluseuranta,1491717]
         match_link = base_url + match.select(".live-match-link")[0].a["data-details-href"]
         # gives the id for the match:
         match_id = match_link.split("/")[4]
-        print(f"ID: {match_id}, type: {type(match_id)}")
+        # print(f"ID: {match_id}, type: {type(match_id)}")
         match_details = fetch_match_data(match_id)
         # error handling if only a string was returned -> no match_details found
         if not isinstance(match_details, str):
@@ -69,14 +66,12 @@ def fetch_match_details(ottelut):
         # @Todo [FEAT] Venue link can be build from data -> https://www.palloliitto.fi/areena/336 -> 'venue_location_id'
         all_ottelut[match_id] = match_details
         all_ottelut.pop("lineups", None)
-        print("Match details added")
-        break
+        print(f"match:{i}")
 
-def scraper():
+    print("Scraper: All match data collected")
 
+
+def scraper(json_file):
     fetch_match_details(scrape_ottelut(scrape_url))
-    # print(all_ottelut["1507270"]["match_link"])
-
-# print(fetch_match_data("14916453"))
-
-# scraper()
+    with open(json_file, "w+") as file:
+        json.dump(all_ottelut, file)
