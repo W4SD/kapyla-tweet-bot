@@ -21,28 +21,32 @@ def main():
     # find next match day
     print("Find match data")
     mongrel.db_find_next_match()
+
     # generate tweet
     print("Generating tweets...")
     TweetBot = Tweetter()
-    tweet = ""
     if mongrel.days_until_match is 0:
         game_data = mongrel.db_fetch_match_data()
         for game in game_data:
-            TB = TweetBuilder(game)
-            tweet = TB.generate_tweet()
+            TB = TweetBuilder(game_data=game)
+            tweet = TB.generate_tweet_match_day()
             del TB
             # tweet for every loop!
             print("Tweet:", tweet)
+            TweetBot.tweet_match(tweet)
 
     # else tweet days until next match
     else:
         # @ToDo rng tekstit tälle ja TweetBuilder luokan päivitys
-        tweet = f"Enää {mongrel.days_until_match} päivää jäljellä seuraavaan matsiin!"
+        TB = TweetBuilder(days_until=mongrel.days_until_match)
+        tweet = TB.generate_tweet_non_match_day()
         print("Tweet:", tweet)
+        TweetBot.tweet_match(tweet)
+        del TB
 
     print("Daily tweets done!")
 
 
 if __name__ == "__main__":
-    #
+    # RUN!
     main()

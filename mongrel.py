@@ -14,10 +14,10 @@ class Mongrel():
 
         connector = "mongodb+srv://" + username + ":" + password + address
         self.Client = MongoClient(connector)
-        self.db = self.Client["user"]
-        # self.db = self.Client["kapyla_pallo"]
-        self.collection = self.db["pelit"]
-        # self.collection = self.db["all_match_data"]
+        # self.db = self.Client["user"]
+        self.db = self.Client["kapyla_pallo"]
+        # self.collection = self.db["pelit"]
+        self.collection = self.db["all_match_data"]
         self.current_date = date.today()
         self.date_format = "%Y-%m-%d"
         self.days_until_match = None
