@@ -17,7 +17,7 @@ class TweetBuilder():
                 f"Jumankauti, {self.days_until} päivän päästä pelataa!",
                 f"{self.days_until} päivää käsipäivää palloo kenttää!",
                 f"Enää näi mont päivää et o käpylän seurava peli : {self.days_until}",
-                f"Ei mittä pelei olis? No ei tänäpe mut vena {self.days_until} päivä",
+                f"Ei mittä pelei olis? No ei tänäpe mut vena {self.days_until} päivä !",
                 f"Käpylä duunailee poltsii reppuu {self.days_until} päivän päästä",
                 f"Sä oot ihan seula. Tuu veks luukulta, sielhä on matsi, tai {self.days_until} päivän päästä ainakin..!",
                 f"Kassari kassalle ja potti kotiin. Tuu tsiidaa ku Käpylä pelaa! {self.days_until} päivää!",

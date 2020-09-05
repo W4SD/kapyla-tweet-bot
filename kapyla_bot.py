@@ -4,6 +4,7 @@ from pallo_scraper2 import scraper
 from mongrel import Mongrel
 from tweet_builder import TweetBuilder
 from tweetter import Tweetter
+from datetime import date
 
 def main():
 
@@ -48,4 +49,6 @@ def main():
 
 if __name__ == "__main__":
     # RUN!
+    print(f"Today is: {date.today()}")
     main()
+    print("----------------END----------------")
