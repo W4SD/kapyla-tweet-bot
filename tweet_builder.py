@@ -6,6 +6,8 @@ class TweetBuilder():
 
     def __init__(self, game_data=None, days_until=None):
 
+        self.info_url = "https://www.palloliitto.fi/seura/3436"
+
         if not game_data:
             self.days_until = days_until
 
@@ -16,6 +18,12 @@ class TweetBuilder():
                 f"{self.days_until} päivää käsipäivää palloo kenttää!",
                 f"Enää näi mont päivää et o käpylän seurava peli : {self.days_until}",
                 f"Ei mittä pelei olis? No ei tänäpe mut vena {self.days_until} päivä",
+                f"Käpylä duunailee poltsii reppuu {self.days_until} päivän päästä",
+                f"Sä oot ihan seula. Tuu veks luukulta, sielhä on matsi, tai {self.days_until} päivän päästä ainakin..!",
+                f"Kassari kassalle ja potti kotiin. Tuu tsiidaa ku Käpylä pelaa! {self.days_until} päivää!",
+                f"Käpylä futii sassii eli {self.days_until} päivää.",
+                f"Hotsittais pallo, ketä pelaa? No Käpylä vissi! Koska? No {self.days_until} päivän päästä!"
+
             ]
 
             self.WHEN_GAME_1 = [
@@ -25,6 +33,7 @@ class TweetBuilder():
                 f"Enää {self.days_until} päivä jäljellä seuraavaan matsiin!",
                 f"Enää {self.days_until} päivä odotusta ja sit peleij!!",
                 f"Onk Viljoo näkyny? Ei o.. mut pelit olis HUAME!",
+                f"Kassari kassalle ja potti kotiin. Tuu tsiidaa ku Käpylä pelaa huomenna!",
             ]
 
         else:
@@ -146,6 +155,10 @@ class TweetBuilder():
             tweet = random.choice(self.WHEN_GAME_1)
         else:
             tweet = random.choice(self.WHEN_GAME_2)
+
+        # print match data ish 33% of the time..
+        if random.randrange(1,7) < 3:
+            tweet += f" - Tsiikaa tulevat matsit: {self.info_url}"
 
         return tweet
 

@@ -37,7 +37,6 @@ def main():
 
     # else tweet days until next match
     else:
-        # @ToDo rng tekstit tälle ja TweetBuilder luokan päivitys
         TB = TweetBuilder(days_until=mongrel.days_until_match)
         tweet = TB.generate_tweet_non_match_day()
         print("Tweet:", tweet)
